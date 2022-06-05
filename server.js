@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const PORT = 8000;
+
+app.use(cors());
 
 const tea = {
   'oolong': {
@@ -34,8 +37,13 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/api', (req, res) => {
-  res.json(tea);
+app.get('/api/:name', (req, res) => {
+  const teaName = req.params.name.toLowerCase(); // log the name of the tea requested from the url
+  if (tea[teaName]) {
+    res.json(tea[teaName]);
+  } else {
+    res.json(tea['unknown']);
+  };
 });
 
 app.listen(process.env.PORT || PORT, () => {
