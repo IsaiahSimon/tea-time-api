@@ -1,2 +1,2 @@
 # Tea API
-A simple API of different teas
+A simple API of different teas as a base project.
